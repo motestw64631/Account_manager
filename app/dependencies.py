@@ -1,0 +1,11 @@
+from fastapi import Header, HTTPException
+from .database import SessionLocal
+
+
+def get_db():
+    ''' Method for configure database '''
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

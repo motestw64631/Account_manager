@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: senao_test
+      POSTGRES_USER: shaun
+      POSTGRES_PASSWORD: shaunchen1234
+    ports:
+      - "5432:5432"
