@@ -1,6 +1,57 @@
+# User Guide
+
+This user guide provides instructions for setting up and using the Account Manager application.
+
+## Installation
+
+1. Clone the repository from GitHub:
+   ```
+   git clone https://github.com/motestw64631/Account_manager/edit/main/README.md
+   ```
+
+2. Use Docker Compose to start the application:
+   ```
+   docker-compose up --build
+   ```
+
+## Usage
+
+### Create User API
+
+To test the Create User API, use the following `curl` command:
+```bash
+curl -X 'POST' \
+  'http://localhost:8087/users' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "string",
+  "password": "String123"
+}'
+```
+
+### Verify API
+
+To test the Verify API, use the following `curl` command:
+```bash
+curl -X 'POST' \
+  'http://localhost:8087/verify' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "string",
+  "password": "String123"
+}'
+```
+
+#### API Docs
+
+You can view the documentation below or connect to http://localhost:8087/docs after starting the container to view the API documentation.
+
+
 
 ***
-# FastAPI
+# API document
 ## Introduction
 
 This two APIs show how to create accounts and verify a account. 
@@ -17,7 +68,28 @@ This two APIs show how to create accounts and verify a account.
   - Schema:
     ```json
     {
-      "$ref": "#/components/schemas/UserCreate"
+      "properties": {
+        "username": {
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 3,
+          "title": "Username",
+          "description": "a string representing the desired username for the account, with a minimum length of 3 characters and a maximum length of 32 characters."
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 32,
+          "minLength": 8,
+          "title": "Password",
+          "description": "a string representing the desired password for the account, with aminimum length of 8 characters and a maximum length of 32 characters, containing at least 1 uppercase letter, 1 lowercase letter, and 1 number."
+        }
+      },
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "title": "UserCreate"
     }
     ```
   - Required: Yes
@@ -27,7 +99,15 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ResponseModel"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "ResponseModel"
       }
       ```
   - `400`: Bad Request
@@ -35,7 +115,22 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ErrorResponse"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ErrorResponse"
       }
       ```
   - `422`: Unprocessable Entity
@@ -43,7 +138,22 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ErrorResponse"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ErrorResponse"
       }
       ```
 
@@ -57,7 +167,24 @@ This two APIs show how to create accounts and verify a account.
   - Schema:
     ```json
     {
-      "$ref": "#/components/schemas/UserVerify"
+      "properties": {
+        "username": {
+          "type": "string",
+          "title": "Username",
+          "description": "a string representing the username of the account being accessed."
+        },
+        "password": {
+          "type": "string",
+          "title": "Password",
+          "description": "a string representing the password being used to access the account."
+        }
+      },
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "title": "UserVerify"
     }
     ```
   - Required: Yes
@@ -67,7 +194,15 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ResponseModel"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "ResponseModel"
       }
       ```
   - `401`: Unauthorized
@@ -75,7 +210,22 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ErrorResponse"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ErrorResponse"
       }
       ```
   - `422`: Unprocessable Entity
@@ -83,7 +233,22 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ErrorResponse"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ErrorResponse"
       }
       ```
   - `429`: Too Many Requests
@@ -91,7 +256,22 @@ This two APIs show how to create accounts and verify a account.
     - Schema:
       ```json
       {
-        "$ref": "#/components/schemas/ErrorResponse"
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": false
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "ErrorResponse"
       }
       ```
 
