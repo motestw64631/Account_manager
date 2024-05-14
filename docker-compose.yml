@@ -5,18 +5,10 @@ services:
       POSTGRES_DB: senao_test
       POSTGRES_USER: shaun
       POSTGRES_PASSWORD: shaunchen1234
-    ports:
-      - "5432:5432"
 
   web:
     build: .
     ports:
-      - "8000:8000"
+      - "8087:8087"
     depends_on:
       - db
-
-  alembic_upgrade:
-    build: .
-    depends_on:
-      - db
-    entrypoint: ["sh", "-c", "sleep 10 && alembic upgrade head"]
