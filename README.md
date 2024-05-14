@@ -6,7 +6,7 @@ This user guide provides instructions for setting up and using the Account Manag
 
 1. Clone the repository from GitHub:
    ```
-   git clone https://github.com/motestw64631/Account_manager/edit/main/README.md
+   git clone https://github.com/motestw64631/Account_manager/
    ```
 
 2. Use Docker Compose to start the application:
